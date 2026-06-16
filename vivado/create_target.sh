@@ -5,14 +5,13 @@
 if [ "$#" -lt 1 ]; then
     echo "Usage: $0 <part_number> [arch] [name] [iostandard]"
     echo "Example: $0 xc7z010clg400-1 zynq coraz7 LVCMOS33"
+    echo "Example: $0 ice40up5k-sg48 ice40 upduino"
     exit 1
 fi
 
 PART=$(echo "$1" | tr '[:upper:]' '[:lower:]')
 
-# 0. Intelligent reformatting
-# Convert commercial part number (e.g. xc7z010-1clg400c) to Vivado part (e.g. xc7z010clg400-1)
-# Pattern: <device>-<speed><package><temp> -> <device><package>-<speed>
+# 0. Intelligent reformatting for Xilinx
 if [[ "$PART" =~ ^([a-z0-9]+)-([0-9]+)([a-z]+[0-9]+)[a-z]?$ ]]; then
     PART="${BASH_REMATCH[1]}${BASH_REMATCH[3]}-${BASH_REMATCH[2]}"
 fi
@@ -21,18 +20,27 @@ ARCH=$2
 NAME=$3
 IOSTANDARD=$4
 
-# 1. Infer ARCH if not provided
+# 1. Infer ARCH and VENDOR if not provided
 if [ -z "$ARCH" ]; then
     case "$PART" in
-        xc7a*)  ARCH="artix7" ;;
-        xc7k*)  ARCH="kintex7" ;;
-        xc7v*)  ARCH="virtex7" ;;
-        xc7z*)  ARCH="zynq" ;;
-        xcku*)  ARCH="kintexu" ;;
-        xcvu*)  ARCH="virtexu" ;;
-        xckp*)  ARCH="kintexup" ;;
-        xcvp*)  ARCH="virtexup" ;;
-        *)      ARCH="unknown" ;;
+        xc7a*)      ARCH="artix7"; VENDOR="xilinx" ;;
+        xc7k*)      ARCH="kintex7"; VENDOR="xilinx" ;;
+        xc7v*)      ARCH="virtex7"; VENDOR="xilinx" ;;
+        xc7z*)      ARCH="zynq"; VENDOR="xilinx" ;;
+        xcku*)      ARCH="kintexu"; VENDOR="xilinx" ;;
+        xcvu*)      ARCH="virtexu"; VENDOR="xilinx" ;;
+        xckp*)      ARCH="kintexup"; VENDOR="xilinx" ;;
+        xcvp*)      ARCH="virtexup"; VENDOR="xilinx" ;;
+        lfe5*)      ARCH="ecp5"; VENDOR="lattice" ;;
+        ice40*)     ARCH="ice40"; VENDOR="ice40" ;;
+        *)          ARCH="unknown"; VENDOR="unknown" ;;
+    esac
+else
+    case "$ARCH" in
+        artix7|kintex7|virtex7|zynq|kintexu|virtexu|kintexup|virtexup) VENDOR="xilinx" ;;
+        ecp5)   VENDOR="lattice" ;;
+        ice40)  VENDOR="ice40" ;;
+        *)      VENDOR="unknown" ;;
     esac
 fi
 
@@ -43,7 +51,11 @@ fi
 
 # 3. Default IOSTANDARD
 if [ -z "$IOSTANDARD" ]; then
-    IOSTANDARD="LVCMOS18"
+    if [ "$VENDOR" == "lattice" ] || [ "$VENDOR" == "ice40" ]; then
+        IOSTANDARD="LVCMOS33"
+    else
+        IOSTANDARD="LVCMOS18"
+    fi
 fi
 
 DIR="fpga_$NAME"
@@ -57,7 +69,100 @@ echo "Creating target in $DIR for part $PART (Arch: $ARCH)..."
 mkdir -p "$DIR"
 
 # 4. Create Makefile
-cat <<EOF > "$DIR/Makefile"
+if [ "$VENDOR" == "lattice" ]; then
+    CAPACITY=$(echo "$PART" | grep -oP '\d+(?=f)' | head -n 1)
+    if [ -z "$CAPACITY" ]; then CAPACITY="25"; fi
+    PNR_FLAG="--${CAPACITY}k"
+
+    RAW_PKG=$(echo "$PART" | rev | cut -d'-' -f1 | rev | grep -oP '[a-zA-Z]+[0-9]+' | head -n 1)
+    if [[ "$RAW_PKG" == bg* ]]; then
+        PACKAGE="CABGA${RAW_PKG#bg}"
+    elif [[ "$RAW_PKG" == cabg* ]]; then
+        PACKAGE="CABGA${RAW_PKG#cabg}"
+    else
+        PACKAGE="${RAW_PKG^^}"
+    fi
+
+    cat <<EOF > "$DIR/Makefile"
+# FPGA settings
+FPGA_PART = $PART
+export FPGA_PART
+FPGA_TOP = fpga
+FPGA_ARCH = $ARCH
+PNR_FLAG = $PNR_FLAG
+PACKAGE = $PACKAGE
+
+# Files for synthesis
+SYN_FILES = ./fpga.v
+SYN_FILES += ../rtl/pin_uart.v
+
+# LPF files
+LPF_FILES = ./fpga.lpf
+
+all: \$(FPGA_TOP).bit
+
+fpga.v fpga.lpf:
+	tclsh ../generate.tcl
+
+\$(FPGA_TOP).json: \$(SYN_FILES)
+	yosys -p "synth_ecp5 -top \$(FPGA_TOP) -json \$@" \$^
+
+\$(FPGA_TOP)_out.config: \$(FPGA_TOP).json \$(LPF_FILES)
+	nextpnr-ecp5 \$(PNR_FLAG) --package \$(PACKAGE) --json \$(FPGA_TOP).json --lpf \$(LPF_FILES) --textcfg \$@
+
+\$(FPGA_TOP).bit: \$(FPGA_TOP)_out.config
+	ecppack \$< \$@
+
+clean:
+	rm -f \$(FPGA_TOP).json \$(FPGA_TOP)_out.config \$(FPGA_TOP).bit fpga.v fpga.lpf
+
+program: \$(FPGA_TOP).bit
+	openfpgaloader -b colorlight \$<
+EOF
+
+elif [ "$VENDOR" == "ice40" ]; then
+    DEVICE=$(echo "$PART" | cut -d'-' -f1 | sed 's/ice40//')
+    PACKAGE=$(echo "$PART" | cut -d'-' -f2)
+
+    cat <<EOF > "$DIR/Makefile"
+# FPGA settings
+FPGA_PART = $PART
+export FPGA_PART
+FPGA_TOP = fpga
+FPGA_ARCH = $ARCH
+DEVICE = $DEVICE
+PACKAGE = $PACKAGE
+
+# Files for synthesis
+SYN_FILES = ./fpga.v
+SYN_FILES += ../rtl/pin_uart.v
+
+# PCF files
+PCF_FILES = ./fpga.pcf
+
+all: \$(FPGA_TOP).bin
+
+fpga.v fpga.pcf:
+	tclsh ../generate.tcl
+
+\$(FPGA_TOP).json: \$(SYN_FILES)
+	yosys -p "synth_ice40 -top \$(FPGA_TOP) -json \$@" \$^
+
+\$(FPGA_TOP).asc: \$(FPGA_TOP).json \$(PCF_FILES)
+	/usr/bin/nextpnr-ice40 --\$(DEVICE) --package \$(PACKAGE) --json \$(FPGA_TOP).json --pcf \$(PCF_FILES) --asc \$@
+
+\$(FPGA_TOP).bin: \$(FPGA_TOP).asc
+	icepack \$< \$@
+
+clean:
+	rm -f \$(FPGA_TOP).json \$(FPGA_TOP).asc \$(FPGA_TOP).bin fpga.v fpga.pcf
+
+program: \$(FPGA_TOP).bin
+	iceprog \$<
+EOF
+
+else
+    cat <<EOF > "$DIR/Makefile"
 # FPGA settings
 FPGA_PART = $PART
 FPGA_TOP = fpga
@@ -65,22 +170,19 @@ FPGA_ARCH = $ARCH
 
 # Files for synthesis
 SYN_FILES = ./fpga.v
-SYN_FILES += rtl/pin_uart.v
+SYN_FILES += ../rtl/pin_uart.v
 
 # XDC files
 XDC_FILES = ./fpga.xdc
 
-# IP
-#IP_TCL_FILES = 
-
 # Configuration
 CONFIG_TCL_FILES = ./config.tcl
-CONFIG_TCL_FILES += generate.tcl
+CONFIG_TCL_FILES += ../generate.tcl
 
 include ../common/vivado.mk
 
 fpga.v fpga.xdc:
-	touch \$@
+	vivado -mode batch -source ../generate.tcl
 
 clean::
 	-rm -rf fpga.v fpga.xdc
@@ -94,92 +196,14 @@ program: \$(FPGA_TOP).bit
 	echo "set_property PROGRAM.FILE {\$(FPGA_TOP).bit} [current_hw_device]" >> program.tcl
 	echo "program_hw_devices [current_hw_device]" >> program.tcl
 	echo "exit" >> program.tcl
-	vivado -nojournal -nolog -mode batch -source program.tcl
+	vivado -mode batch -source program.tcl
 EOF
-
-# 5. Create config.tcl
-# Determine clk_src based on ARCH (7-series use STARTUPE2, US/US+ use STARTUPE3)
-CLK_SRC="STARTUPE2"
-CLK_FREQ="65000000"
-CLK_PERIOD="10"
-
-if [[ "$ARCH" == *u* ]] || [[ "$ARCH" == *p* ]]; then
-    CLK_SRC="STARTUPE3"
-    CLK_FREQ="50000000"
-    CLK_PERIOD="15"
 fi
 
+# 5. Create config.tcl
 cat <<EOF > "$DIR/config.tcl"
-# Copyright (c) 2023 Alex Forencich
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-
-# clock source
-# STARTUPE2, STARTUPE3, IBUFG, IBUFGDS, IBUFDS_GTE2
-set clk_src "$CLK_SRC"
-
-if {\$clk_src == "STARTUPE2"} {
-
-    # Fcfgmclk is 65 MHz with no specified tolerance, rounding to 10 ns period
-
-    # frequency of clock source (in Hz)
-    set clk_freq "$CLK_FREQ"
-    # worst-case period for timing analysis (in ns)
-    set clk_period "$CLK_PERIOD"
-
-} elseif {\$clk_src == "STARTUPE3"} {
-
-    # Fcfgmclk is 50 MHz +/- 15%, rounding to 15 ns period
-
-    # frequency of clock source (in Hz)
-    set clk_freq "$CLK_FREQ"
-    # worst-case period for timing analysis (in ns)
-    set clk_period "$CLK_PERIOD"
-
-} else {
-
-    # clock pin
-    set clk_pin {}
-    # iostandard for clock pin
-    set clk_iostandard "$IOSTANDARD"
-
-    # frequency of clock source (in Hz)
-    set clk_freq "50000000"
-    # worst-case period for timing analysis (in ns)
-    set clk_period [format "%.3f" [expr 1000000000.0 / \$clk_freq]]
-
-}
-
-# desired baud rate
-set baud "115200"
-
-# number of groups to shift at the same time
-# more groups reduces collisions at the expense of repetition rate
-set group_count "32"
-
-# iostandard for all pins
 set iostandard "$IOSTANDARD"
-
-# pins to skip
-set skip_pins_by_index {}
-set skip_pins_by_name {}
 EOF
 
-chmod +x "$DIR/Makefile" # Not really needed for Makefile but good practice for scripts
-echo "Done. You can now go to $DIR and run 'make'."
+echo "Done. Target created in $DIR."
+echo "Run 'cd $DIR && make' to generate files and build bitstream."
