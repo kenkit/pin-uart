@@ -169,8 +169,9 @@ FPGA_TOP = fpga
 FPGA_ARCH = $ARCH
 
 # Files for synthesis
+# Paths use ./ to prevent vivado.mk from prepending ../
 SYN_FILES = ./fpga.v
-SYN_FILES += ../rtl/pin_uart.v
+SYN_FILES += ./rtl/pin_uart.v
 
 # XDC files
 XDC_FILES = ./fpga.xdc
@@ -181,6 +182,7 @@ CONFIG_TCL_FILES += ../generate.tcl
 
 include ../common/vivado.mk
 
+# Custom target to generate HDL/Constraints
 fpga.v fpga.xdc:
 	vivado -mode batch -source ../generate.tcl
 
