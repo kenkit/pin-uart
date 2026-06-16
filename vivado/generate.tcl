@@ -213,7 +213,7 @@ if {$vendor == "lattice"} {
     set fp [open "fpga.xdc" w]
     puts $fp "# Xilinx Constraints"
     foreach pin $pins {
-        puts $fp "set_property -dict {LOC $pin IOSTANDARD $iostandard} \[get_ports $pin\]"
+        puts $fp "set_property -dict {LOC $pin IOSTANDARD $iostandard} \[get_ports P$pin\]"
     }
     close $fp
     close_design

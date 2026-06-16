@@ -171,14 +171,14 @@ FPGA_ARCH = $ARCH
 # Files for synthesis
 # Paths use ./ to prevent vivado.mk from prepending ../
 SYN_FILES = ./fpga.v
-SYN_FILES += ./rtl/pin_uart.v
+SYN_FILES += ./../rtl/pin_uart.v
 
 # XDC files
 XDC_FILES = ./fpga.xdc
 
 # Configuration
 CONFIG_TCL_FILES = ./config.tcl
-CONFIG_TCL_FILES += ../generate.tcl
+CONFIG_TCL_FILES += ./../generate.tcl
 
 include ../common/vivado.mk
 
@@ -203,8 +203,14 @@ EOF
 fi
 
 # 5. Create config.tcl
+CLK_SRC="STARTUPE2"
+if [[ "$ARCH" == *u* ]] || [[ "$ARCH" == *p* ]]; then
+    CLK_SRC="STARTUPE3"
+fi
+
 cat <<EOF > "$DIR/config.tcl"
 set iostandard "$IOSTANDARD"
+set clk_src "$CLK_SRC"
 EOF
 
 echo "Done. Target created in $DIR."
