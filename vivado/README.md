@@ -16,21 +16,22 @@ You can automate the creation of a new target project directory using the `creat
 
 ```bash
 # Usage:
-./create_target.sh <part_number> [arch] [name] [iostandard]
+./create_target.sh <part_number> [arch] [name] [iostandard] [clk_pin] [clk_freq]
 
 # Examples:
-# Xilinx Artix-7:
+# Xilinx Artix-7 (Internal Clock):
 ./create_target.sh xc7a35t-1fgg484 artix7 my_artix_board LVCMOS33
+
+# Xilinx Artix-7 (External Clock on pin E3, 100MHz):
+./create_target.sh xc7a35t-1fgg484 artix7 my_artix_board LVCMOS33 E3 100000000
 
 # Lattice ECP5:
 ./create_target.sh LFE5U-25F-6BG256C ecp5 my_ecp5_board LVCMOS33
 
 # Lattice iCE40:
 ./create_target.sh ice40hx1k-tq144 ice40 my_ice40_board LVCMOS33
-
-# Zynq (auto-detection):
-./create_target.sh xc7z010clg400-1 zynq coraz7 LVCMOS18
 ```
+
 
 If the script fails to automatically infer the architecture, you can explicitly provide it as the second argument (e.g., `artix7`, `ecp5`, `ice40`, `zynq`). This will create a new directory (e.g., `fpga_my_artix_board/`), generate the necessary `Makefile` and `config.tcl`, and prepare the environment for building.
 

@@ -3,9 +3,9 @@
 # Automation script to create a new FPGA target directory with Makefile and config.tcl
 
 if [ "$#" -lt 1 ]; then
-    echo "Usage: $0 <part_number> [arch] [name] [iostandard]"
+    echo "Usage: $0 <part_number> [arch] [name] [iostandard] [clk_pin] [clk_freq]"
     echo "Example: $0 xc7z010clg400-1 zynq coraz7 LVCMOS33"
-    echo "Example: $0 ice40up5k-sg48 ice40 upduino"
+    echo "Example: $0 xc7a35t-1fgg484 artix7 arty7 LVCMOS33 E3 100000000"
     exit 1
 fi
 
@@ -19,10 +19,13 @@ fi
 ARCH=$2
 NAME=$3
 IOSTANDARD=$4
+CLK_PIN=$5
+CLK_FREQ=$6
 
 # 1. Infer ARCH and VENDOR if not provided
 if [ -z "$ARCH" ]; then
-    case "$PART" in
+# ... (rest of the detection logic remains the same)
+
         xc7a*)      ARCH="artix7"; VENDOR="xilinx" ;;
         xc7k*)      ARCH="kintex7"; VENDOR="xilinx" ;;
         xc7v*)      ARCH="virtex7"; VENDOR="xilinx" ;;
@@ -210,7 +213,9 @@ fi
 
 cat <<EOF > "$DIR/config.tcl"
 set iostandard "$IOSTANDARD"
-set clk_src "$CLK_SRC"
+set clk_pin "$CLK_PIN"
+set clk_freq "$CLK_FREQ"
+set clk_iostandard "$IOSTANDARD"
 EOF
 
 echo "Done. Target created in $DIR."

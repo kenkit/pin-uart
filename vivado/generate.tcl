@@ -107,18 +107,20 @@ proc sort_bga_pins {pins} {
 set pins [sort_bga_pins $pins]
 
 # 3. Clock & Baud Settings
-if {$clk_src == "OSCG"} {
-    if { ![info exists clk_freq] } { set clk_freq "38750000" }
-    if { ![info exists clk_period] } { set clk_period "25.8" }
-} elseif {$clk_src == "SB_HFOSC"} {
-    if { ![info exists clk_freq] } { set clk_freq "48000000" }
-    if { ![info exists clk_period] } { set clk_period "20.8" }
+if { ![info exists clk_pin] } { set clk_pin "" }
+if { ![info exists clk_freq] || $clk_freq == "" } { 
+    # Use defaults if not provided in config.tcl
+    if {$clk_src == "OSCG"} {
+        set clk_freq "38750000"
+    } elseif {$clk_src == "SB_HFOSC"} {
+        set clk_freq "48000000"
+    } else {
+        set clk_freq "50000000"
+    }
 }
+set clk_period [format "%.3f" [expr 1000000000.0 / $clk_freq]]
 
-if { ![info exists clk_pin] } { set clk_pin {} }
 if { ![info exists clk_iostandard] } { set clk_iostandard "LVCMOS18" }
-if { ![info exists clk_freq] } { set clk_freq "50000000" }
-if { ![info exists clk_period] } { set clk_period [format "%.3f" [expr 1000000000.0 / $clk_freq]] }
 if { ![info exists baud] } { set baud "115200" }
 if { ![info exists group_count] } { set group_count "32" }
 if { ![info exists iostandard] } {
@@ -129,7 +131,7 @@ if { ![info exists iostandard] } {
 set fp [open "fpga.v" w]
 puts $fp "/* Generated Verilog ... */"
 puts $fp "`resetall\n`timescale 1ns / 1ps\n`default_nettype none\n\nmodule fpga ("
-
+puts $fp "    input wire clk,"
 for { set i 0 } { $i < [llength $pins] } { incr i } {
     set pin [lindex $pins $i]
     set port_name "P$pin"
@@ -144,15 +146,13 @@ for { set i 0 } { $i < [llength $pins] } { incr i } {
 
 puts $fp ");\n\nwire clk_int;"
 
-# Primitives
-if {$clk_src == "OSCG"} {
-    puts $fp "// Lattice ECP5 OSCG\nwire clk_osc;\nOSCG #(.DIV(8)) osc_inst (.OSC(clk_osc));\nassign clk_int = clk_osc;"
-} elseif {$clk_src == "SB_HFOSC"} {
-    puts $fp "// iCE40 SB_HFOSC\nwire clk_osc;\nSB_HFOSC #(.CLKHF_DIV(\"0b00\")) hfosc_inst (.CLKHFPU(1'b1), .CLKHFEN(1'b1), .CLKHF(clk_osc));\nassign clk_int = clk_osc;"
-} elseif {$clk_src == "STARTUPE2"} {
-    puts $fp "// Xilinx STARTUPE2\nwire cfgmclk;\nSTARTUPE2 startupe2_inst (.CFGMCLK(cfgmclk));\nBUFG clk_bufg_inst (.I(cfgmclk), .O(clk_int));"
-} elseif {$clk_src == "STARTUPE3"} {
-    puts $fp "// Xilinx STARTUPE3\nwire cfgmclk;\nSTARTUPE3 startupe3_inst (.CFGMCLK(cfgmclk));\nBUFG clk_bufg_inst (.I(cfgmclk), .O(clk_int));"
+# Clock generation logic
+if { $clk_pin == "" } {
+    puts $fp "// Internal clock generation"
+    puts $fp "clock_gen #(.ARCH(\"$vendor\")) clk_gen_inst (.clk_out(clk_int));"
+} else {
+    puts $fp "// External clock input"
+    puts $fp "assign clk_int = clk;"
 }
 
 puts $fp "\nlocalparam CLK_FREQ = $clk_freq;\nlocalparam BAUD = $baud;\nlocalparam PIN_COUNT = [llength $pins];\nlocalparam GROUP_COUNT = $group_count;"
