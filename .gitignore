@@ -1,0 +1,42 @@
+# Git ignore for pin-uart project
+
+# Vivado artifacts
+*.jou
+*.log
+*.pb
+*.rpt
+*.rpx
+*.vdi
+*.vds
+*.xpr
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.srcs/
+.Xil/
+defines.v
+create_project.tcl
+update_config.tcl
+run_synth.tcl
+run_impl.tcl
+generate_bit.tcl
+program.tcl
+generate_mcs.tcl
+flash.tcl
+
+# Lattice/iCE40 artifacts
+*.json
+*.config
+*.asc
+*.bit
+*.bin
+fpga.v
+fpga.lpf
+fpga.pcf
+fpga.xdc
+
+# Local build outputs
+build/
+rev/

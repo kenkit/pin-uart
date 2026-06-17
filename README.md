@@ -6,7 +6,38 @@ GitHub repository: https://github.com/alexforencich/pin-uart
 
 The pin UART is an FPGA board-level debugging and reverse-engineering utility.  The design drives pin names out of all of the IO pins on a device, which can then be probed with an oscilloscope with serial decode capability.
 
-The build is scripted to generate the top-level HDL and pin constraint files based on the device pins.  Currently, only Vivado is supported, but it should be straightforward to port to other tools.
+The build is scripted to generate the top-level HDL and pin constraint files based on the device pins.  Currently, Xilinx Vivado, Lattice ECP5, and iCE40 are supported.
+
+## How to build
+
+### Creating New Projects
+
+You can automate the creation of a new target project directory using the `create_target.sh` script or the `Makefile`. The script creates a new target in the `build/` directory (which is excluded from version control).
+
+```bash
+# Using Makefile:
+make create PART=xc7a35t-1fgg484 ARCH=artix7 NAME=my_artix_board IO=LVCMOS33
+
+# Using the script directly:
+./create_target.sh <part_number> [arch] [name] [iostandard] [clk_pin] [clk_freq]
+```
+
+**Note:** If `clk_pin` and `clk_freq` are not specified, the design will attempt to use an internal oscillator (e.g. `STARTUPE3` for Xilinx, `OSCG` for ECP5, `SB_HFOSC` for iCE40).
+
+#### Examples:
+* **Xilinx Artix-7 (Internal Clock):**
+  `./create_target.sh xc7a35t-1fgg484 artix7 my_artix_board LVCMOS33`
+* **Lattice ECP5:**
+  `./create_target.sh LFE5U-25F-6BG256C ecp5 my_ecp5_board LVCMOS33`
+* **Lattice iCE40:**
+  `./create_target.sh ice40hx1k-tq144 ice40 my_ice40_board LVCMOS33`
+
+After creating the target, navigate to the generated directory in `build/` and run `make`:
+
+```bash
+cd build/xilinx/my_artix_board
+make
+```
 
 ## Documentation
 
