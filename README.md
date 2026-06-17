@@ -21,14 +21,18 @@ The build is scripted to generate the top-level HDL and pin constraint files bas
 ### Lattice ECP5 (Project Trellis)
 * **Yosys:** For Verilog synthesis.
 * **nextpnr-ecp5:** For placement and routing.
-* **Project Trellis:** Database required by nextpnr.
+* **Project Trellis Database:** Required for pin extraction (`scripts/get_pins.py`). The script searches in:
+    * `/usr/share/trellis/database/`
+    * `~/.apio/packages/oss-cad-suite/share/trellis/database/`
 * **ecppack:** For bitstream generation.
 * **openfpgaloader:** (Recommended) For programming.
 
 ### Lattice iCE40 (Project IceStorm)
 * **Yosys:** For Verilog synthesis.
 * **nextpnr-ice40:** For placement and routing.
-* **Project IceStorm:** For bitstream generation (`icepack`) and database.
+* **Project IceStorm (IceBox):** Database files (`chipdb-*.txt`) are required for pin extraction. The script searches in:
+    * `~/.apio/packages/oss-cad-suite/share/icebox/`
+* **icepack:** For bitstream generation.
 * **iceprog:** For programming.
 
 ### Quick Install (Ubuntu/Debian)
