@@ -1,0 +1,432 @@
+#-----------------------------------------------------------
+# Vivado v2025.2.1 (64-bit)
+# SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+# IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+# SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+# Start of session at: Wed Jun 17 05:36:12 2026
+# Process ID         : 186864
+# Current directory  : /media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.runs/synth_1
+# Command line       : vivado -log fpga.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source fpga.tcl
+# Log file           : /media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.runs/synth_1/fpga.vds
+# Journal file       : /media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.runs/synth_1/vivado.jou
+# Running On         : tony-A3009CD10002
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : Intel(R) Core(TM) i7-4810MQ CPU @ 2.80GHz
+# CPU Frequency      : 2793.691 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 7723 MB
+# Swap memory        : 999 MB
+# Total Virtual      : 8723 MB
+# Available Virtual  : 3758 MB
+#-----------------------------------------------------------
+source fpga.tcl -notrace
+create_project: Time (s): cpu = 00:00:22 ; elapsed = 00:00:05 . Memory (MB): peak = 1629.602 ; gain = 64.059 ; free physical = 258 ; free virtual = 3156
+Command: synth_design -top fpga -part xc7a35tfgg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tfgg484-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 186893
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 2209.242 ; gain = 482.273 ; free physical = 175 ; free virtual = 2372
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'fpga' [/media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.v:6]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: A1 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized0' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: A13 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized0' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized1' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: A14 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized1' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized2' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: A15 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized2' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized3' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: A16 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized3' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized4' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: A18 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized4' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized5' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: A19 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized5' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized6' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: A20 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized6' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized7' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: A21 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized7' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized8' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B1 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized8' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized9' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B2 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized9' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized10' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B13 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized10' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized11' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B15 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized11' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized12' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B16 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized12' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized13' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B17 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized13' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized14' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B18 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized14' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized15' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B20 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized15' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized16' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B21 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized16' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized17' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: B22 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized17' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized18' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: C2 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized18' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized19' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: C13 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized19' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized20' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: C14 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized20' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized21' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: C15 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized21' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized22' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: C17 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized22' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized23' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: C18 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized23' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized24' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: C19 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized24' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized25' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: C20 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized25' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized26' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: C22 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized26' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized27' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D1 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized27' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized28' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D2 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized28' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized29' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D14 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized29' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized30' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D15 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized30' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized31' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D16 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized31' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized32' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D17 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized32' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized33' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D19 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized33' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized34' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D20 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized34' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized35' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D21 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized35' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized36' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: D22 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized36' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized37' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E1 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized37' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized38' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E2 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized38' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized39' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E13 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized39' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized40' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E14 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized40' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized41' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E16 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized41' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized42' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E17 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized42' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized43' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E18 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized43' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized44' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E19 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized44' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized45' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E21 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized45' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized46' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: E22 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized46' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized47' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F1 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized47' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized48' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F3 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized48' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized49' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F4 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized49' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized50' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F13 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized50' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized51' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F14 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized51' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized52' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F15 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized52' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized53' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F16 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized53' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized54' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F18 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized54' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized55' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F19 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized55' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized56' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F20 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized56' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized57' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: F21 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized57' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized58' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: G1 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized58' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized59' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: G2 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized59' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized60' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: G3 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized60' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized61' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: G4 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized61' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6157] synthesizing module 'pin_uart__parameterized62' [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+	Parameter NAME bound to: G13 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'pin_uart__parameterized62' (0#1) [/media/tony/backup/pin-uart/vivado/rtl/pin_uart.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'fpga' (0#1) [/media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.v:6]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 2302.180 ; gain = 575.211 ; free physical = 188 ; free virtual = 2265
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 2319.992 ; gain = 593.023 ; free physical = 190 ; free virtual = 2268
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 2319.992 ; gain = 593.023 ; free physical = 190 ; free virtual = 2268
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2319.992 ; gain = 0.000 ; free physical = 190 ; free virtual = 2268
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.xdc]
+WARNING: [Vivado 12-507] No nets matched 'clk_IBUF'. [/media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.xdc:3]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.xdc:3]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [/media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/fpga_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/fpga_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2426.762 ; gain = 0.000 ; free physical = 179 ; free virtual = 2241
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2426.797 ; gain = 0.000 ; free physical = 178 ; free virtual = 2238
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:36 ; elapsed = 00:00:39 . Memory (MB): peak = 2426.797 ; gain = 699.828 ; free physical = 225 ; free virtual = 2261
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tfgg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:36 ; elapsed = 00:00:39 . Memory (MB): peak = 2434.766 ; gain = 707.797 ; free physical = 225 ; free virtual = 2260
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:36 ; elapsed = 00:00:39 . Memory (MB): peak = 2434.766 ; gain = 707.797 ; free physical = 225 ; free virtual = 2260
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:37 ; elapsed = 00:00:40 . Memory (MB): peak = 2434.766 ; gain = 707.797 ; free physical = 218 ; free virtual = 2260
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    6 Bit       Adders := 65    
++---Registers : 
+	               32 Bit    Registers := 1     
+	                6 Bit    Registers := 65    
+	                1 Bit    Registers := 65    
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:46 ; elapsed = 00:00:50 . Memory (MB): peak = 2434.766 ; gain = 707.797 ; free physical = 201 ; free virtual = 2248
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:53 ; elapsed = 00:00:57 . Memory (MB): peak = 2492.766 ; gain = 765.797 ; free physical = 178 ; free virtual = 2151
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:54 ; elapsed = 00:00:57 . Memory (MB): peak = 2492.766 ; gain = 765.797 ; free physical = 179 ; free virtual = 2151
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:55 ; elapsed = 00:00:59 . Memory (MB): peak = 2511.797 ; gain = 784.828 ; free physical = 174 ; free virtual = 2127
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:09 ; elapsed = 00:01:13 . Memory (MB): peak = 2688.609 ; gain = 961.641 ; free physical = 182 ; free virtual = 1973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:09 ; elapsed = 00:01:13 . Memory (MB): peak = 2688.609 ; gain = 961.641 ; free physical = 182 ; free virtual = 1973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:09 ; elapsed = 00:01:13 . Memory (MB): peak = 2688.609 ; gain = 961.641 ; free physical = 182 ; free virtual = 1973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:09 ; elapsed = 00:01:13 . Memory (MB): peak = 2688.609 ; gain = 961.641 ; free physical = 182 ; free virtual = 1973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:09 ; elapsed = 00:01:13 . Memory (MB): peak = 2688.609 ; gain = 961.641 ; free physical = 182 ; free virtual = 1973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:09 ; elapsed = 00:01:13 . Memory (MB): peak = 2688.609 ; gain = 961.641 ; free physical = 182 ; free virtual = 1973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY4 |    10|
+|3     |LUT1   |    98|
+|4     |LUT2   |   108|
+|5     |LUT3   |    96|
+|6     |LUT4   |    75|
+|7     |LUT5   |    97|
+|8     |LUT6   |   173|
+|9     |FDRE   |   449|
+|10    |FDSE   |    75|
+|11    |IBUF   |     1|
+|12    |OBUF   |    64|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:09 ; elapsed = 00:01:13 . Memory (MB): peak = 2688.609 ; gain = 961.641 ; free physical = 182 ; free virtual = 1973
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 2688.609 ; gain = 854.836 ; free physical = 183 ; free virtual = 1973
+Synthesis Optimization Complete : Time (s): cpu = 00:01:10 ; elapsed = 00:01:14 . Memory (MB): peak = 2688.617 ; gain = 961.641 ; free physical = 183 ; free virtual = 1973
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2688.617 ; gain = 0.000 ; free physical = 183 ; free virtual = 1973
+INFO: [Netlist 29-17] Analyzing 10 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2744.637 ; gain = 0.000 ; free physical = 361 ; free virtual = 2152
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 1b470afb
+INFO: [Common 17-83] Releasing license: Synthesis
+145 Infos, 1 Warnings, 1 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:26 ; elapsed = 00:01:25 . Memory (MB): peak = 2744.672 ; gain = 1115.070 ; free physical = 360 ; free virtual = 2152
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2010.245; main = 1817.584; forked = 294.335
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3638.836; main = 2744.641; forked = 1016.035
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2768.648 ; gain = 0.000 ; free physical = 360 ; free virtual = 2152
+INFO: [Common 17-1381] The checkpoint '/media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/fpga.runs/synth_1/fpga.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file fpga_utilization_synth.rpt -pb fpga_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Jun 17 05:37:51 2026...

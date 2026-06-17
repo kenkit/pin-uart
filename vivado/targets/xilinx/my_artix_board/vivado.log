@@ -1,0 +1,243 @@
+#-----------------------------------------------------------
+# Vivado v2025.2.1 (64-bit)
+# SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+# IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+# SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+# Start of session at: Wed Jun 17 05:34:52 2026
+# Process ID         : 186389
+# Current directory  : /media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board
+# Command line       : vivado -mode batch -source ../../../scripts/generate.tcl
+# Log file           : /media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/vivado.log
+# Journal file       : /media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board/vivado.jou
+# Running On         : tony-A3009CD10002
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : Intel(R) Core(TM) i7-4810MQ CPU @ 2.80GHz
+# CPU Frequency      : 2792.647 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 7723 MB
+# Swap memory        : 999 MB
+# Total Virtual      : 8723 MB
+# Available Virtual  : 4269 MB
+#-----------------------------------------------------------
+source ../../../scripts/generate.tcl
+# puts "DEBUG: pwd=[pwd]"
+DEBUG: pwd=/media/tony/backup/pin-uart/vivado/targets/xilinx/my_artix_board
+# if {[file exists "config.tcl"]} { puts "DEBUG: config.tcl exists"; source "config.tcl" } else { puts "DEBUG: config.tcl NOT found" }
+DEBUG: config.tcl exists
+## set iostandard "LVCMOS33"
+## set clk_pin "E3"
+## set clk_freq "100000000"
+## set clk_iostandard "LVCMOS33"
+# if { ![info exists vendor] } {
+#     if { [info commands get_package_pins] != "" } {
+#         set vendor "xilinx"
+#     } else {
+#         set arch ""
+#         if {[info exists env(FPGA_ARCH)]} {
+#             set arch $env(FPGA_ARCH)
+#         } elseif {[file exists "Makefile"]} {
+#             set fp [open "Makefile" r]
+#             while {[gets $fp line] >= 0} {
+#                 if {[regexp {^FPGA_ARCH\s*=\s*(.*)} $line -> match]} { set arch [string trim $match]; if {$arch == "ice40"} {set vendor "ice40"}
+#                     set arch [string trim $match]
+#                     break
+#                 }
+#             }
+#             close $fp
+#         }
+#         
+#         if {$arch == "ecp5"} { set vendor "lattice" }
+#         if {$arch == "ice40"} { set vendor "ice40" }
+#         if {$arch == "artix7" || $arch == "kintex7" || $arch == "virtex7" || $arch == "zynq"} { set vendor "xilinx" }
+#     }
+# }
+# if {![info exists vendor]} { set vendor "lattice" }
+# if { ![info exists clk_src] } {
+#     if {$vendor == "lattice"} {
+#         set clk_src "OSCG"
+#     } elseif {$vendor == "ice40"} {
+#         set clk_src "SB_HFOSC"
+#     } else {
+#         set clk_src "STARTUPE3"
+#     }
+# }
+# if {$vendor == "xilinx"} {
+#     set_property design_mode PinPlanning [current_fileset]
+#     open_io_design
+#     set pins [get_package_pins -filter {IS_GENERAL_PURPOSE==1}]
+# } else {
+#     # Pin discovery via python script
+#     if {[info exists env(FPGA_PART)]} {
+#         set part $env(FPGA_PART)
+#     } elseif {[file exists "Makefile"]} {
+#         set fp [open "Makefile" r]
+#         while {[gets $fp line] >= 0} {
+#             if {[regexp {^FPGA_PART\s*=\s*(.*)} $line -> match]} {
+#                 set part [string trim $match]
+#                 break
+#             }
+#         }
+#         close $fp
+#     }
+# 
+#     if {![info exists part]} {
+#         puts "Error: FPGA_PART not set"
+#         exit 1
+#     }
+#     
+#     set pkg ""
+#     if {$vendor == "ice40"} {
+#         # Extract package for ice40
+#         if {[file exists "Makefile"]} {
+#             set fp [open "Makefile" r]
+#             while {[gets $fp line] >= 0} {
+#                 if {[regexp {^PACKAGE\s*=\s*(.*)} $line -> match]} {
+#                     set pkg [string trim $match]
+#                     break
+#                 }
+#             }
+#             close $fp
+#         }
+#     }
+# 
+#     set pins [exec python3 ../../../scripts/get_pins.py $vendor $part $pkg]
+# }
+current_fileset: Time (s): cpu = 00:00:23 ; elapsed = 00:00:05 . Memory (MB): peak = 1631.660 ; gain = 64.059 ; free physical = 466 ; free virtual = 3665
+Design is defaulting to project part: xc7a12ticsg325-1L
+INFO: [Device 21-403] Loading part xc7a12ticsg325-1L
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1718.957 ; gain = 0.000 ; free physical = 362 ; free virtual = 3563
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1802.645 ; gain = 0.000 ; free physical = 287 ; free virtual = 3487
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_io_design: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1802.680 ; gain = 171.020 ; free physical = 286 ; free virtual = 3487
+# proc sort_bga_pins {pins} {
+#     foreach pin $pins {lappend pairs [list $pin [regsub {^\D\d+$} $pin {_&}]]}
+#     foreach pair [lsort -index 1 -dictionary $pairs] {lappend result [lindex $pair 0]}
+#     return $result
+# }
+# set pins [sort_bga_pins $pins]
+# if {![info exists clk_pin]} { set clk_pin "" }
+# if { $clk_pin != "" } {
+#     set pins [lsearch -all -inline -not -exact $pins $clk_pin]
+# }
+# if {$vendor == "xilinx" && [llength $pins] > 64} {
+#     set pins [lrange $pins 0 63]
+# }
+# if { ![info exists clk_pin] } { set clk_pin "" }
+# if { ![info exists clk_freq] || $clk_freq == "" } { 
+#     # Use defaults if not provided in config.tcl
+#     if {$clk_src == "OSCG"} {
+#         set clk_freq "38750000"
+#     } elseif {$clk_src == "SB_HFOSC"} {
+#         set clk_freq "48000000"
+#     } else {
+#         set clk_freq "50000000"
+#     }
+# }
+# set clk_period [format "%.3f" [expr 1000000000.0 / $clk_freq]]
+# if { ![info exists clk_iostandard] } { set clk_iostandard "LVCMOS18" }
+# if { ![info exists baud] } { set baud "115200" }
+# if { ![info exists group_count] } { set group_count "32" }
+# if { ![info exists iostandard] } {
+#     if {$vendor == "lattice" || $vendor == "ice40"} { set iostandard "LVCMOS33" } else { set iostandard "LVCMOS18" }
+# }
+# set fp [open "fpga.v" w]
+# puts $fp "/* Generated Verilog ... */"
+# puts $fp "`resetall\n`timescale 1ns / 1ps\n`default_nettype none\n\nmodule fpga ("
+# puts $fp "    input wire clk,"
+# for { set i 0 } { $i < [llength $pins] } { incr i } {
+#     set pin [lindex $pins $i]
+#     set port_name "P$pin"
+#     if {$vendor == "lattice" || $vendor == "xilinx"} { set port_name "P$pin" }
+#     
+#     if { $i < [expr [llength $pins]-1 ] } {
+#         puts $fp "    output wire $port_name,"
+#     } else {
+#         puts $fp "    output wire $port_name"
+#     }
+# }
+# puts $fp ");\n\nwire clk_int;"
+# if { $clk_pin == "" } {
+#     puts $fp "// Internal clock generation"
+#     puts $fp "clock_gen #(.ARCH(\"$vendor\")) clk_gen_inst (.clk_out(clk_int));"
+# } else {
+#     puts $fp "// External clock input"
+#     puts $fp "assign clk_int = clk;"
+# }
+# puts $fp "\nlocalparam CLK_FREQ = $clk_freq;\nlocalparam BAUD = $baud;\nlocalparam PIN_COUNT = [llength $pins];\nlocalparam GROUP_COUNT = $group_count;"
+# puts $fp "
+# reg shift_rst_reg = 1'b0;
+# reg \[31:0\] group_select_reg = 0;
+# reg \[GROUP_COUNT-1:0\] shift_reg = 0;
+# reg \[31:0\] prescale_reg = CLK_FREQ / BAUD;
+# reg \[5:0\] shift_count_reg = 0;
+# 
+# always @(posedge clk_int) begin
+#     shift_rst_reg <= 1'b0;
+#     shift_reg <= 0;
+#     if (prescale_reg) begin
+#         prescale_reg <= prescale_reg - 1;
+#     end else begin
+#         prescale_reg <= CLK_FREQ / BAUD;
+#         if (shift_count_reg) begin
+#             shift_count_reg <= shift_count_reg - 1;
+#             shift_reg\[group_select_reg % GROUP_COUNT\] <= 1'b1;
+#         end else begin
+#             shift_count_reg <= 6'h3f;
+#             shift_rst_reg <= 1'b1;
+#             group_select_reg <= group_select_reg + 1;
+#         end
+#     end
+# end
+# "
+# for { set i 0 } { $i < [llength $pins] } { incr i } {
+#     set pin [lindex $pins $i]
+#     set port_name "P$pin"
+#     if {$vendor == "lattice" || $vendor == "xilinx"} { set port_name "P$pin" }
+#     
+#     puts $fp "pin_uart #(.NAME(\"${pin}\")) pin_${port_name}_uart_inst (.clk(clk_int), .rst(shift_rst_reg), .shift(shift_reg\[${i}%GROUP_COUNT\]), .out(${port_name}));"
+# }
+# puts $fp "\nendmodule\n`resetall"
+# close $fp
+# if {$vendor == "lattice"} {
+#     set fp [open "fpga.lpf" w]
+#     puts $fp "BLOCK ASYNC;\nBLOCK RESETPATHS;\nFREQUENCY NET \"clk_int\" $clk_freq Hz;"
+#     if { $clk_pin != "" } {
+#         puts "DEBUG: Constraining clk to $clk_pin"
+#         puts $fp "LOCATE COMP \"clk\" SITE \"$clk_pin\";\nIOBUF PORT \"clk\" IO_TYPE=$clk_iostandard;"
+#     }
+#     foreach pin $pins {
+#         puts $fp "LOCATE COMP \"P$pin\" SITE \"$pin\";\nIOBUF PORT \"P$pin\" IO_TYPE=$iostandard;"
+#     }
+#     close $fp
+# } elseif {$vendor == "ice40"} {
+#     set fp [open "fpga.pcf" w]
+#     if { $clk_pin != "" } {
+#         puts $fp "set_io clk $clk_pin"
+#     }
+#     foreach pin $pins {
+#         puts $fp "set_io P$pin $pin"
+#     }
+#     close $fp
+# 
+# 
+# 
+# } else {
+#     set fp [open "fpga.xdc" w]
+#     puts $fp "# Xilinx Constraints"
+#     if { $clk_pin != "" } {
+#         puts $fp "set_property -dict {LOC $clk_pin IOSTANDARD $clk_iostandard} \[get_ports clk\]"
+#         puts $fp "set_property CLOCK_DEDICATED_ROUTE FALSE \[get_nets clk_IBUF\]"
+#     }
+#     foreach pin $pins {
+#         puts $fp "set_property -dict {LOC $pin IOSTANDARD $iostandard} \[get_ports P$pin\]"
+#     }
+#     close $fp
+#     close_design
+#     set_property design_mode RTL [current_fileset]
+# }
+INFO: [Common 17-206] Exiting Vivado at Wed Jun 17 05:35:14 2026...

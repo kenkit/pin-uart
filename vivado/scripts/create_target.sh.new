@@ -1,0 +1,3 @@
+#!/bin/bash
+# ... (rest of the file header)
+# (Actually, replacing via sed for specific blocks is safer than trying to match the entire file)
