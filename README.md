@@ -8,6 +8,39 @@ The pin UART is an FPGA board-level debugging and reverse-engineering utility.  
 
 The build is scripted to generate the top-level HDL and pin constraint files based on the device pins.  Currently, Xilinx Vivado, Lattice ECP5, and iCE40 are supported.
 
+## Dependencies
+
+### Common
+* **Tcl Interpreter (`tclsh`):** Used to run generation scripts.
+* **Python 3:** Required for pin extraction.
+* **GNU Make:** Required for the build system.
+
+### Xilinx Vivado
+* **Vivado:** Required for all Xilinx targets (synthesis, P&R, bitstream, and programming).
+
+### Lattice ECP5 (Project Trellis)
+* **Yosys:** For Verilog synthesis.
+* **nextpnr-ecp5:** For placement and routing.
+* **Project Trellis:** Database required by nextpnr.
+* **ecppack:** For bitstream generation.
+* **openfpgaloader:** (Recommended) For programming.
+
+### Lattice iCE40 (Project IceStorm)
+* **Yosys:** For Verilog synthesis.
+* **nextpnr-ice40:** For placement and routing.
+* **Project IceStorm:** For bitstream generation (`icepack`) and database.
+* **iceprog:** For programming.
+
+### Quick Install (Ubuntu/Debian)
+```bash
+# Basic dependencies
+sudo apt install tcl python3 make
+
+# Open-source FPGA tools
+sudo apt install yosys nextpnr-ecp5 nextpnr-ice40 fpga-icestorm fpga-trellis openfpgaloader
+```
+Alternatively, the [OSS CAD Suite](https://github.com/YosysHQ/oss-cad-suite-build) is a highly recommended all-in-one pre-built toolchain.
+
 ## How to build
 
 ### Creating New Projects
