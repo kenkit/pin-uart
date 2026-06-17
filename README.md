@@ -62,12 +62,24 @@ make create PART=xc7a35t-1fgg484 ARCH=artix7 NAME=my_artix_board IO=LVCMOS33
 **Note:** If `clk_pin` and `clk_freq` are not specified, the design will attempt to use an internal oscillator (e.g. `STARTUPE3` for Xilinx, `OSCG` for ECP5, `SB_HFOSC` for iCE40).
 
 #### Examples:
-* **Xilinx Artix-7 (Internal Clock):**
+
+**Xilinx Artix-7**
+* **Internal Clock:**
   `./create_target.sh xc7a35t-1fgg484 artix7 my_artix_board LVCMOS33`
-* **Lattice ECP5:**
+* **External Clock (100MHz on pin E3):**
+  `make create PART=xc7a35t-1fgg484 ARCH=artix7 NAME=my_artix_ext CLK_PIN=E3 CLK_FREQ=100000000`
+
+**Lattice ECP5**
+* **Internal Clock:**
   `./create_target.sh LFE5U-25F-6BG256C ecp5 my_ecp5_board LVCMOS33`
-* **Lattice iCE40:**
+* **External Clock (25MHz on pin B1):**
+  `./create_target.sh LFE5U-25F-6BG256C ecp5 my_ecp5_ext LVCMOS33 B1 25000000`
+
+**Lattice iCE40**
+* **Internal Clock:**
   `./create_target.sh ice40hx1k-tq144 ice40 my_ice40_board LVCMOS33`
+* **External Clock (12MHz on pin 35):**
+  `make create PART=ice40hx1k-tq144 ARCH=ice40 NAME=my_ice40_ext CLK_PIN=35 CLK_FREQ=12000000`
 
 After creating the target, navigate to the generated directory in `build/` and run `make`:
 
