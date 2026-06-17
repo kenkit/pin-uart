@@ -213,10 +213,10 @@ if {$vendor == "lattice"} {
     puts $fp "BLOCK ASYNC;\nBLOCK RESETPATHS;\nFREQUENCY NET \"clk_int\" $clk_freq Hz;"
     if { $clk_pin != "" } {
         puts "DEBUG: Constraining clk to $clk_pin"
-        puts $fp "LOCATE COMP \"clk\" SITE \"$clk_pin\";\nIOBUF PORT \"clk\" IO_TYPE=$clk_iostandard;"
+        puts $fp "LOCATE COMP \"clk\" SITE \"$clk_pin\";\nIOBUF PORT \"clk\" IO_TYPE=$clk_iostandard DRIVE=4;"
     }
     foreach pin $pins {
-        puts $fp "LOCATE COMP \"P$pin\" SITE \"$pin\";\nIOBUF PORT \"P$pin\" IO_TYPE=$iostandard;"
+        puts $fp "LOCATE COMP \"P$pin\" SITE \"$pin\";\nIOBUF PORT \"P$pin\" IO_TYPE=$iostandard DRIVE=4;"
     }
     close $fp
 } elseif {$vendor == "ice40"} {
@@ -228,18 +228,15 @@ if {$vendor == "lattice"} {
         puts $fp "set_io P$pin $pin"
     }
     close $fp
-
-
-
 } else {
     set fp [open "fpga.xdc" w]
     puts $fp "# Xilinx Constraints"
     if { $clk_pin != "" } {
-        puts $fp "set_property -dict {LOC $clk_pin IOSTANDARD $clk_iostandard} \[get_ports clk\]"
+        puts $fp "set_property -dict {LOC $clk_pin IOSTANDARD $clk_iostandard DRIVE 4} \[get_ports clk\]"
         puts $fp "set_property CLOCK_DEDICATED_ROUTE FALSE \[get_nets clk_IBUF\]"
     }
     foreach pin $pins {
-        puts $fp "set_property -dict {LOC $pin IOSTANDARD $iostandard} \[get_ports P$pin\]"
+        puts $fp "set_property -dict {LOC $pin IOSTANDARD $iostandard DRIVE 4} \[get_ports P$pin\]"
     }
     close $fp
     close_design
