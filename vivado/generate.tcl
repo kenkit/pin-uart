@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-if { ![info exists vendor] } {
+puts "DEBUG: pwd=[pwd]"; if {[file exists "config.tcl"]} { puts "DEBUG: config.tcl exists"; source "config.tcl" } else { puts "DEBUG: config.tcl NOT found" }; if { ![info exists vendor] } {
     if { [info commands get_package_pins] != "" } {
         set vendor "xilinx"
     } else {
@@ -105,6 +105,19 @@ proc sort_bga_pins {pins} {
 }
 
 set pins [sort_bga_pins $pins]
+
+# Ensure clk_pin is defined to prevent errors in non-Xilinx projects
+if {![info exists clk_pin]} { set clk_pin "" }
+
+# Remove external clock pin from pins list to prevent double-mapping
+if { $clk_pin != "" } {
+    set pins [lsearch -all -inline -not -exact $pins $clk_pin]
+}
+
+# Limit pin count for Xilinx Vivado to avoid overutilization
+if {$vendor == "xilinx" && [llength $pins] > 64} {
+    set pins [lrange $pins 0 63]
+}
 
 # 3. Clock & Baud Settings
 if { ![info exists clk_pin] } { set clk_pin "" }
@@ -197,6 +210,10 @@ close $fp
 if {$vendor == "lattice"} {
     set fp [open "fpga.lpf" w]
     puts $fp "BLOCK ASYNC;\nBLOCK RESETPATHS;\nFREQUENCY NET \"clk_int\" $clk_freq Hz;"
+    if { $clk_pin != "" } {
+        puts "DEBUG: Constraining clk to $clk_pin"
+        puts $fp "LOCATE COMP \"clk\" SITE \"$clk_pin\";\nIOBUF PORT \"clk\" IO_TYPE=$clk_iostandard;"
+    }
     foreach pin $pins {
         puts $fp "LOCATE COMP \"P$pin\" SITE \"$pin\";\nIOBUF PORT \"P$pin\" IO_TYPE=$iostandard;"
     }
@@ -204,14 +221,19 @@ if {$vendor == "lattice"} {
 } elseif {$vendor == "ice40"} {
     set fp [open "fpga.pcf" w]
     foreach pin $pins {
-        puts $fp "set_io P$pin $pin"
+        puts $fp "set_io $pin $pin"
     }
     close $fp
+
 
 
 } else {
     set fp [open "fpga.xdc" w]
     puts $fp "# Xilinx Constraints"
+    if { $clk_pin != "" } {
+        puts $fp "set_property -dict {LOC $clk_pin IOSTANDARD $clk_iostandard} \[get_ports clk\]"
+        puts $fp "set_property CLOCK_DEDICATED_ROUTE FALSE \[get_nets clk_IBUF\]"
+    }
     foreach pin $pins {
         puts $fp "set_property -dict {LOC $pin IOSTANDARD $iostandard} \[get_ports P$pin\]"
     }

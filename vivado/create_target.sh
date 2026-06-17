@@ -2,10 +2,36 @@
 
 # Automation script to create a new FPGA target directory with Makefile and config.tcl
 
+show_help() {
+    echo "Usage: $0 [OPTIONS] <part_number> [arch] [name] [iostandard] [clk_pin] [clk_freq]"
+    echo
+    echo "Creates a new FPGA target directory with a Makefile and config.tcl."
+    echo
+    echo "Options:"
+    echo "  -h, --help    Show this help message and exit."
+    echo
+    echo "Arguments:"
+    echo "  part_number   Target FPGA part (e.g., xc7a35t-1fgg484, LFE5U-25F-6BG256C)"
+    echo "  arch          FPGA architecture (optional, inferred if omitted)"
+    echo "  name          Project name (optional, inferred from part if omitted)"
+    echo "  iostandard    I/O standard (optional, default LVCMOS33/18)"
+    echo "  clk_pin       External clock pin (optional, leave empty for internal)"
+    echo "  clk_freq      External clock frequency in Hz (optional)"
+    echo
+    echo "Examples:"
+    echo "  $0 xc7a35t-1fgg484 artix7 my_artix_board LVCMOS33"
+    echo "  $0 xc7a35t-1fgg484 artix7 my_artix_board LVCMOS33 E3 100000000"
+    echo "  $0 LFE5U-25F-6BG256C ecp5 my_ecp5_board LVCMOS33"
+    echo "  $0 ice40hx1k-tq144 ice40 my_ice40_board LVCMOS33"
+}
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    show_help
+    exit 0
+fi
+
 if [ "$#" -lt 1 ]; then
-    echo "Usage: $0 <part_number> [arch] [name] [iostandard] [clk_pin] [clk_freq]"
-    echo "Example: $0 xc7z010clg400-1 zynq coraz7 LVCMOS33"
-    echo "Example: $0 xc7a35t-1fgg484 artix7 arty7 LVCMOS33 E3 100000000"
+    show_help
     exit 1
 fi
 
@@ -24,8 +50,7 @@ CLK_FREQ=$6
 
 # 1. Infer ARCH and VENDOR if not provided
 if [ -z "$ARCH" ]; then
-# ... (rest of the detection logic remains the same)
-
+    case "$PART" in
         xc7a*)      ARCH="artix7"; VENDOR="xilinx" ;;
         xc7k*)      ARCH="kintex7"; VENDOR="xilinx" ;;
         xc7v*)      ARCH="virtex7"; VENDOR="xilinx" ;;
@@ -39,6 +64,7 @@ if [ -z "$ARCH" ]; then
         *)          ARCH="unknown"; VENDOR="unknown" ;;
     esac
 else
+
     case "$ARCH" in
         artix7|kintex7|virtex7|zynq|kintexu|virtexu|kintexup|virtexup) VENDOR="xilinx" ;;
         ecp5)   VENDOR="lattice" ;;
@@ -98,6 +124,7 @@ PACKAGE = $PACKAGE
 # Files for synthesis
 SYN_FILES = ./fpga.v
 SYN_FILES += ../rtl/pin_uart.v
+SYN_FILES += ../rtl/clock_gen.v
 
 # LPF files
 LPF_FILES = ./fpga.lpf
@@ -108,7 +135,7 @@ fpga.v fpga.lpf:
 	tclsh ../generate.tcl
 
 \$(FPGA_TOP).json: \$(SYN_FILES)
-	yosys -p "synth_ecp5 -top \$(FPGA_TOP) -json \$@" \$^
+	yosys -p "read_verilog -D ARCH_ECP5 fpga.v ../rtl/pin_uart.v ../rtl/clock_gen.v; synth_ecp5 -top \$(FPGA_TOP) -json \$@"
 
 \$(FPGA_TOP)_out.config: \$(FPGA_TOP).json \$(LPF_FILES)
 	nextpnr-ecp5 \$(PNR_FLAG) --package \$(PACKAGE) --json \$(FPGA_TOP).json --lpf \$(LPF_FILES) --textcfg \$@
@@ -139,6 +166,7 @@ PACKAGE = $PACKAGE
 # Files for synthesis
 SYN_FILES = ./fpga.v
 SYN_FILES += ../rtl/pin_uart.v
+SYN_FILES += ../rtl/clock_gen.v
 
 # PCF files
 PCF_FILES = ./fpga.pcf
@@ -149,7 +177,7 @@ fpga.v fpga.pcf:
 	tclsh ../generate.tcl
 
 \$(FPGA_TOP).json: \$(SYN_FILES)
-	yosys -p "synth_ice40 -top \$(FPGA_TOP) -json \$@" \$^
+	yosys -p "read_verilog -D ARCH_ICE40 fpga.v ../rtl/pin_uart.v ../rtl/clock_gen.v; synth_ice40 -top \$(FPGA_TOP) -json \$@"
 
 \$(FPGA_TOP).asc: \$(FPGA_TOP).json \$(PCF_FILES)
 	/usr/bin/nextpnr-ice40 --\$(DEVICE) --package \$(PACKAGE) --json \$(FPGA_TOP).json --pcf \$(PCF_FILES) --asc \$@
@@ -175,6 +203,7 @@ FPGA_ARCH = $ARCH
 # Paths use ./ to prevent vivado.mk from prepending ../
 SYN_FILES = ./fpga.v
 SYN_FILES += ./../rtl/pin_uart.v
+SYN_FILES += ./../rtl/clock_gen.v
 
 # XDC files
 XDC_FILES = ./fpga.xdc
